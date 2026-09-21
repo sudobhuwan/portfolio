@@ -8,8 +8,11 @@
  */
 
 import type { GitHubApiError } from "../../src/types/github";
-import { GitHubServiceError, toServiceError } from "./errors";
-import { getContributions, getProfile, getRepositories, resolveYear } from "./service";
+// `.js` extensions are required for Node's native ESM loader in production
+// (see api/_github-handler.ts for why); type-only imports above are erased at
+// compile time and never hit that loader, so they're left extensionless.
+import { GitHubServiceError, toServiceError } from "./errors.js";
+import { getContributions, getProfile, getRepositories, resolveYear } from "./service.js";
 
 export type GitHubRoute = "profile" | "contributions" | "repositories";
 

@@ -10,13 +10,15 @@ import type {
   GitHubProfile,
   GitHubRepositories,
 } from "../../src/types/github";
-import { cached, type CachedResult } from "./cache";
-import { graphqlRequest } from "./client";
-import { loadGitHubConfig } from "./config";
-import { GitHubServiceError } from "./errors";
-import { normalizeContributions, normalizeProfile, normalizeRepositories } from "./normalize";
-import { contributionsSchema, profileSchema, repositoriesSchema } from "./schemas";
-import { CONTRIBUTIONS_QUERY, PROFILE_QUERY, REPOSITORIES_QUERY } from "./queries";
+// `.js` extensions required for Node's native ESM loader in production —
+// see api/_github-handler.ts.
+import { cached, type CachedResult } from "./cache.js";
+import { graphqlRequest } from "./client.js";
+import { loadGitHubConfig } from "./config.js";
+import { GitHubServiceError } from "./errors.js";
+import { normalizeContributions, normalizeProfile, normalizeRepositories } from "./normalize.js";
+import { contributionsSchema, profileSchema, repositoriesSchema } from "./schemas.js";
+import { CONTRIBUTIONS_QUERY, PROFILE_QUERY, REPOSITORIES_QUERY } from "./queries.js";
 
 /* A portfolio's GitHub data changes on the order of hours, not seconds. */
 const PROFILE_TTL_MS = 60 * 60 * 1000;

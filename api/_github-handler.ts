@@ -9,7 +9,19 @@
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import { handleGitHubRequest, type GitHubRoute } from "../server/github/router";
+/*
+ * The `.js` extension below is required, not stylistic: Vercel's builder
+ * transpiles each TypeScript file independently rather than bundling them into
+ * one output file, and the compiled `.js` runs under Node's native ESM loader
+ * (package.json has `"type": "module"`). That loader — unlike bundlers such as
+ * Vite/esbuild, and unlike CommonJS `require` — refuses to resolve an
+ * extensionless relative specifier, so `"../server/github/router"` throws
+ * `ERR_MODULE_NOT_FOUND` at import time in production while working fine in
+ * local dev (where Vite bundles everything). TypeScript's "bundler" module
+ * resolution (see tsconfig.server.json) accepts a `.js` specifier that points
+ * at a `.ts` source file, so this checks out at compile time too.
+ */
+import { handleGitHubRequest, type GitHubRoute } from "../server/github/router.js";
 
 export function createGitHubHandler(route: GitHubRoute) {
   return async function handler(req: IncomingMessage, res: ServerResponse): Promise<void> {

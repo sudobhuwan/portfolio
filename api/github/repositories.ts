@@ -1,3 +1,3 @@
-import { createGitHubHandler } from "../_github-handler";
+import { createGitHubHandler } from "../_github-handler.js";
 
 export default createGitHubHandler("repositories");

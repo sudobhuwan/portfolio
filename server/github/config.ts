@@ -5,7 +5,9 @@
  * deliberately unprefixed.
  */
 
-import { GitHubServiceError } from "./errors";
+// `.js` extension required for Node's native ESM loader in production —
+// see api/_github-handler.ts.
+import { GitHubServiceError } from "./errors.js";
 
 export interface GitHubConfig {
   username: string;

@@ -7,7 +7,9 @@
  * sees a GitHubServiceError.
  */
 
-import { GitHubServiceError } from "./errors";
+// `.js` extension required for Node's native ESM loader in production —
+// see api/_github-handler.ts.
+import { GitHubServiceError } from "./errors.js";
 import type { GitHubConfig } from "./config";
 
 const ENDPOINT = "https://api.github.com/graphql";
