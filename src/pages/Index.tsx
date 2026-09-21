@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import ParticleFace from "@/components/ParticleFace";
+import GitHubSection from "@/components/github/GitHubSection";
+import { ACCENT, BG, BODY, DIM, DISPLAY, FAINT, INK, MONO, SANS } from "@/lib/theme";
 
 /* ============================================================
    BHUWAN SINGH — a minimal portfolio that generates itself.
@@ -8,17 +10,6 @@ import ParticleFace from "@/components/ParticleFace";
    First answer auto-generates on load. Click a topic again
    to regenerate. Edit PROFILE / CONTENT to make it yours.
    ============================================================ */
-
-const BG = "#FBFAF7";
-const INK = "#141519";
-const BODY = "#3E4148";
-const DIM = "#8B8F98";
-const FAINT = "#D8DADE";
-const ACCENT = "#2E4FE0";
-
-const MONO = "'IBM Plex Mono', ui-monospace, Menlo, monospace";
-const DISPLAY = "'Space Grotesk', 'Inter', -apple-system, sans-serif";
-const SANS = "'Inter', -apple-system, 'Segoe UI', sans-serif";
 
 const PROFILE = {
   first: "Bhuwan",
@@ -51,6 +42,9 @@ interface Topic {
   label: string;
   question: string;
   rows: Row[];
+  /* Topics that answer with a component instead of typed rows. The question
+     and the thinking beat still play, so the generation reads the same. */
+  render?: "github";
 }
 
 const CONTENT: Topic[] = [
@@ -114,6 +108,13 @@ const CONTENT: Topic[] = [
         links: [{ t: "live", u: "https://clearairvision.streamlit.app/" }],
       },
     ],
+  },
+  {
+    key: "activity",
+    label: "activity",
+    question: "What have you been shipping?",
+    rows: [],
+    render: "github",
   },
   {
     key: "experience",
@@ -545,6 +546,13 @@ export default function Index() {
                   style={{ fontFamily: MONO, fontSize: 16, color: DIM }}
                   aria-label="thinking"
                 />
+              )}
+
+              {/* a rendered answer — same timing as a typed one */}
+              {topic.render === "github" && !view.thinking && view.qChars >= topic.question.length && (
+                <div className="rise">
+                  <GitHubSection />
+                </div>
               )}
 
               {/* rows */}

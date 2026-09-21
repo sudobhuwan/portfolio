@@ -23,3 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 *.env
+
+# Local environment — contains GITHUB_TOKEN, never commit
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
